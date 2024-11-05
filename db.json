@@ -1,0 +1,16 @@
+{
+  "phones": [
+    {
+      "name": "Dan Abramov",
+      "phone": "12-43-234345",
+      "id": "n56f",
+      "important": true
+    },
+    {
+      "name": "Mary Poppendieck",
+      "phone": "39-23-6423122",
+      "id": "b76e",
+      "important": false
+    }
+  ]
+}
