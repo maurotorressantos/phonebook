@@ -60,15 +60,11 @@ function App() {
   const handleDelete = (id) => {
     phoneService
       .destroy(id)
-      .then((phoneDelete) => {
-        const toDeleteElement = numbers.filter(
-          (number) => number.id !== phoneDelete.id
-        );
+      .then((id) => {
+        const toDeleteElement = numbers.filter((number) => number.id !== id);
 
         setPhoneBook(toDeleteElement);
-        setAlertMessage(
-          `${phoneDelete.name} ha sido eliminado de tus contactos`
-        );
+        setAlertMessage(`Se ha eliminado el teléfono de tus contactos`);
         setTimeout(() => {
           setAlertMessage("");
         }, 2000);
