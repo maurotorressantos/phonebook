@@ -4,6 +4,7 @@ const FormAddPart = ({ onAddPhone }) => {
   const [formValues, setFormValues] = useState({
     nameInput: "",
     numberInput: "",
+    contentInput: "",
   });
 
   const handleChange = (event) => {
@@ -18,9 +19,9 @@ const FormAddPart = ({ onAddPhone }) => {
   const handleSubmitForm = (event) => {
     event.preventDefault();
 
-    const { nameInput, numberInput } = formValues;
+    const { nameInput, numberInput, contentInput } = formValues;
 
-    if (!nameInput || !numberInput) {
+    if (!nameInput || !numberInput || !contentInput) {
       alert("Por favor completa todos los campos.");
       return;
     }
@@ -28,8 +29,9 @@ const FormAddPart = ({ onAddPhone }) => {
     onAddPhone(formValues);
 
     // Limpiar el formulario
-    setFormValues({ nameInput: "", numberInput: "" });
+    setFormValues({ nameInput: "", numberInput: "", contentInput: "" });
   };
+
   return (
     <form onSubmit={handleSubmitForm}>
       <input
@@ -48,6 +50,13 @@ const FormAddPart = ({ onAddPhone }) => {
         placeholder="Número de contacto"
       />
       <br />
+      <textarea
+        name="contentInput"
+        id="contentInput"
+        value={formValues.contentInput}
+        onChange={handleChange}
+        placeholder="Descripción del usuario"
+      />
       <br />
       <button type="submit">Agregar contacto</button>
     </form>

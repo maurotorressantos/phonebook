@@ -8,23 +8,24 @@ function App() {
   const [numbers, setPhoneBook] = useState([]);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const handleAddPhone = ({ nameInput, numberInput }) => {
+  const handleAddPhone = ({ nameInput, numberInput, contentInput }) => {
     if (
       numbers.some(
         (number) => number.name === nameInput || number.phone === numberInput
       )
     ) {
-      alert(`${nameInput} is already added to phonebook`);
+      handleAlertMessage(`${nameInput} is already added to phonebook`);
     } else {
       phoneService
         .create({
           name: nameInput,
           phone: numberInput,
+          content: contentInput,
         })
         .then((newPhone) => {
           setPhoneBook([...numbers, newPhone]);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => handleAlertMessage(error.response.data.error));
     }
   };
 
@@ -57,6 +58,14 @@ function App() {
       .catch((error) => console.log(error));
   };
 
+  const handleAlertMessage = (text) => {
+    setAlertMessage(text);
+
+    setTimeout(() => {
+      setAlertMessage("");
+    }, 2000);
+  };
+
   const handleDelete = (id) => {
     phoneService
       .destroy(id)
@@ -64,10 +73,7 @@ function App() {
         const toDeleteElement = numbers.filter((number) => number.id !== id);
 
         setPhoneBook(toDeleteElement);
-        setAlertMessage(`Se ha eliminado el teléfono de tus contactos`);
-        setTimeout(() => {
-          setAlertMessage("");
-        }, 2000);
+        handleAlertMessage(`Se ha eliminado el teléfono de tus contactos`);
       })
       .catch((error) => console.log(error));
   };
